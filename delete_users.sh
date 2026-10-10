@@ -1,17 +1,14 @@
 #!/bin/bash
 
+# This script creates multiple users based on an array of usernames.
+#
+# Username array
 usernames=("atanaka" "alee" "rpatel")
 
-for username in "${usernames[@]}"; do
-    if ! getent passwd "$username" > /dev/null; then
-        echo "User does not exist: $username"
-        continue
-    fi
-
-    if ! sudo userdel "$username"; then
-        echo "Failed to delete user: $username" >&2
-        exit 1
-    fi
+# delte the users by looping through the array
+for username in "${usernames[@]}"
+do
+    sudo delete_users.sh -m "$username"
 done
 
-echo "User deletion complete"
+echo "Successfully deleted users"
